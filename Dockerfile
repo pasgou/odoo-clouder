@@ -58,7 +58,7 @@ RUN set -x; \
             git \
           # Utilities
             curl \
-            nano
+            nano \
       && pip install --upgrade pip
 
 # create the odoo user
