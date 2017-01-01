@@ -49,6 +49,8 @@ RUN set -x; \
             libldap2-dev \
             libsasl2-dev \
             libssl-dev \
+            libevent-dev \
+            postgresql-server-dev-9.5 \
           # Librairies required for LESS
             node-less \
             nodejs \
