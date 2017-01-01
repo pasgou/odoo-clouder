@@ -10,8 +10,7 @@ RUN echo 'LANG="en_US.UTF-8"' > /etc/default/locale
 RUN apt-get update \
  && apt-get install -y wget \
  && echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
- && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-    sudo apt-key add -
+ && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
 # Add PostgreSQL's repository. It contains the most recent stable release
 #     of PostgreSQL, ``9.5``.
@@ -23,10 +22,10 @@ RUN set -x; \
          apt-get update \
       && apt-get install -y --no-install-recommends \
             ca-certificates \
-            curl \
             python-gevent \
             python-pip \
             python-pyinotify \
+            python-watchdog \
             python-renderpm \
             python-support \
             adduser \
@@ -59,6 +58,7 @@ RUN set -x; \
           # Git is required to clone Odoo project
             git \
           # Utilities
+            curl \
             nano
       && pip install --upgrade pip
 
