@@ -1,5 +1,5 @@
 # odoo-clouder
-Odoo 9 with Clouder modules
+Odoo 10 with Clouder master modules
 
 # DOCKER REPO
 https://hub.docker.com/r/pasgou/odoo-clouder/
