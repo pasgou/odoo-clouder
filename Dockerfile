@@ -9,6 +9,7 @@ RUN echo 'LANG="en_US.UTF-8"' > /etc/default/locale
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
 RUN apt-get update \
  && apt-get install -y wget \
+ && echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
     sudo apt-key add -
 
@@ -20,7 +21,6 @@ RUN apt-get update \
 
 RUN set -x; \
          apt-get update \
-      && echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
       && apt-get install -y --no-install-recommends \
             ca-certificates \
             curl \
