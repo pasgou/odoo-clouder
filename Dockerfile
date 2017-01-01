@@ -38,10 +38,10 @@ RUN apt-get update && \
     npm \
     # This library is necessary to upgrade PIL/pillow module
     libjpeg8-dev \
-    # Git is required to clone Odoo OCB project
+    # Git is required to clone Odoo project and community modules
     git \
     # Utilities
-    wget \
+    wget curl \
     nano
 
 RUN pip install --upgrade pip
