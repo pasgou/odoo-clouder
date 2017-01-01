@@ -14,43 +14,51 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 # install dependencies as distrib packages when system bindings are required
 # some of them extend the basic odoo requirements for a better "apps" compatibility
 # most dependencies are distributed as wheel packages at the next step
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-  apt-get update && \
-  apt-get -yq install \
-    adduser \
-    ghostscript \
-    postgresql-client-9.5 \
-    python \
-    python-pip \
-    python-imaging \
-    python-pychart python-libxslt1 xfonts-base xfonts-75dpi \
-    libxrender1 libxext6 fontconfig \
-    python-zsi \
-    python-lasso \
-    libzmq5 \
-    # libpq-dev is needed to install pg_config which is required by psycopg2
-    libpq-dev \
-    # These libraries are needed to install the pip modules
-    python-dev \
-    libffi-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    libldap2-dev \
-    libsasl2-dev \
-    libssl-dev \
-    # Librairies required for LESS
-    node-less \
-    nodejs \
-    npm \
-    # This library is necessary to upgrade PIL/pillow module
-    libjpeg8-dev \
-    # Git is required to clone Odoo OCB project
-    git \
-    # Utilities
-    wget \
-    nano
 
-RUN pip install --upgrade pip
+RUN set -x; \
+         apt-get update \
+      && echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
+      && apt-get install -y --no-install-recommends \
+            ca-certificates \
+            curl \
+            python-gevent \
+            python-pip \
+            python-pyinotify \
+            python-renderpm \
+            python-support \
+            adduser \
+            ghostscript \
+            postgresql-client-9.5 \
+            python \
+            python-pip \
+            python-imaging \
+            python-pychart python-libxslt1 xfonts-base xfonts-75dpi \
+            libxrender1 libxext6 fontconfig \
+            python-zsi \
+            python-lasso \
+            libzmq5 \
+          # libpq-dev is needed to install pg_config which is required by psycopg2
+            libpq-dev \
+          # These libraries are needed to install the pip modules
+            python-dev \
+            libffi-dev \
+            libxml2-dev \
+            libxslt1-dev \
+            libldap2-dev \
+            libsasl2-dev \
+            libssl-dev \
+          # Librairies required for LESS
+            node-less \
+            nodejs \
+            npm \
+          # This library is necessary to upgrade PIL/pillow module
+            libjpeg8-dev \
+          # Git is required to clone Odoo project
+            git \
+          # Utilities
+            wget \
+            nano
+      && pip install --upgrade pip
 
 # create the odoo user
 RUN adduser --home=/opt/odoo --disabled-password --gecos "" --shell=/bin/bash odoo
