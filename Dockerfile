@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER Elico Corp <contact@elico-corp.com>
+MAINTAINER Pascal GOUHIER <pascal.go@gouhier.fr>
 
 # generate locales
 RUN locale-gen en_US.UTF-8 && update-locale
