@@ -5,18 +5,11 @@ MAINTAINER Pascal GOUHIER <pascal.go@gouhier.fr>
 RUN locale-gen en_US.UTF-8 && update-locale
 RUN echo 'LANG="en_US.UTF-8"' > /etc/default/locale
 
-# Add the PostgreSQL PGP key to verify their Debian packages.
-# It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-
-# Add PostgreSQL's repository. It contains the most recent stable release
-#     of PostgreSQL, ``9.5``.
-# install dependencies as distrib packages when system bindings are required
+# Install dependencies as distrib packages when system bindings are required
 # some of them extend the basic odoo requirements for a better "apps" compatibility
 # most dependencies are distributed as wheel packages at the next step
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-  apt-get update && \
-  apt-get -yq install \
+RUN apt-get update && \
+    apt-get -yq install \
     adduser \
     ghostscript \
     postgresql-client-9.5 \
@@ -70,8 +63,8 @@ RUN git clone https://github.com/odoo/odoo.git --depth=1 -b 9.0 odoo && \
 
 # Add Clouder modules and dependencies
 WORKDIR /opt/odoo/addons
-RUN git clone --depth=1 -b 0.9.0 https://github.com/clouder-community/clouder.git clouder && rm -rf clouder/.git && git clone https://github.com/OCA/connector.git --depth=1 -b 9.0 external && \
-  rm -rf external/.git
+RUN git clone --depth=1 -b 0.9.0 https://github.com/clouder-community/clouder.git clouder && rm -rf clouder/.git \
+ && git clone https://github.com/OCA/connector.git --depth=1 -b 9.0 external && rm -rf external/.git
 
 USER root
 # Install Odoo python dependencies
