@@ -64,13 +64,13 @@ RUN /bin/bash -c "mkdir -p /opt/odoo/var/{run,log,egg-cache}"
 
 # Add Odoo sources and remove .git folder in order to reduce image size
 WORKDIR /opt/odoo/sources
-RUN git clone https://github.com/odoo/odoo.git -b 9.0 odoo && \
-  rm -rf odoo/.git
+RUN git clone https://github.com/odoo/odoo.git --depth=1 -b 10.0 odoo && \
+    rm -rf odoo/.git
 
 # Add Clouder modules and dependencies
 WORKDIR /opt/odoo/addons
-RUN git clone https://github.com/clouder-community/clouder.git clouder && git clone https://github.com/OCA/connector.git -b 9.0 external && \
-  rm -rf clouder/.git && rm -rf external/.git
+RUN git clone https://github.com/clouder-community/clouder.git --depth=1 -b master clouder && rm -rf clouder/.git \
+ && git clone https://github.com/OCA/connector.git --depth=1 -b 10.0 external && rm -rf external/.git
 
 USER root
 # Install Odoo python dependencies
