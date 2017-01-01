@@ -27,7 +27,6 @@ RUN set -x; \
             python-pyinotify \
             python-watchdog \
             python-renderpm \
-            python-support \
             adduser \
             ghostscript \
             postgresql-client-9.5 \
