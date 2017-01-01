@@ -10,12 +10,16 @@ RUN echo 'LANG="en_US.UTF-8"' > /etc/default/locale
 # most dependencies are distributed as wheel packages at the next step
 RUN apt-get update && \
     apt-get -yq install \
+    ca-certificates \
+    python-gevent \
+    python-renderpm \
+    python-support \
     adduser \
     ghostscript \
-    postgresql-client-9.5 \
     python \
     python-pip \
     python-imaging \
+    python-pyinotify \
     python-watchdog \
     python-pychart python-libxslt1 xfonts-base xfonts-75dpi \
     libxrender1 libxext6 fontconfig \
