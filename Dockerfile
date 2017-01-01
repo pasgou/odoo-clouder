@@ -7,7 +7,9 @@ RUN echo 'LANG="en_US.UTF-8"' > /etc/default/locale
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+RUN apt-get update \
+ && apt-get install -y wget \
+ && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
     sudo apt-key add -
 
 # Add PostgreSQL's repository. It contains the most recent stable release
@@ -57,7 +59,6 @@ RUN set -x; \
           # Git is required to clone Odoo project
             git \
           # Utilities
-            wget \
             nano
       && pip install --upgrade pip
 
