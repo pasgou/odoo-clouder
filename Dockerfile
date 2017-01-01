@@ -13,7 +13,6 @@ RUN apt-get update && \
     ca-certificates \
     python-gevent \
     python-renderpm \
-    python-support \
     adduser \
     ghostscript \
     python \
