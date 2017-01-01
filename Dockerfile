@@ -33,6 +33,7 @@ RUN set -x; \
             python \
             python-pip \
             python-imaging \
+            python-setuptools \
             python-pychart python-libxslt1 xfonts-base xfonts-75dpi \
             libxrender1 libxext6 fontconfig \
             python-zsi \
