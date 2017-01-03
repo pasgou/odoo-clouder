@@ -82,8 +82,7 @@ RUN git clone https://github.com/odoo/odoo.git --depth=1 -b 10.0 odoo && \
 
 # Add Clouder modules and dependencies
 WORKDIR /opt/odoo/addons
-RUN git clone https://github.com/clouder-community/clouder.git --depth=1 -b master clouder && rm -rf clouder/.git \
- && git clone https://github.com/OCA/connector.git --depth=1 -b 10.0 external && rm -rf external/.git
+RUN git clone https://github.com/clouder-community/clouder.git --depth=1 -b master clouder && rm -rf clouder/.git
 
 USER root
 # Install Odoo python dependencies
