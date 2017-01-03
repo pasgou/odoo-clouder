@@ -51,6 +51,7 @@ RUN set -x; \
             libssl-dev \
             libevent-dev \
             postgresql-server-dev-9.5 \
+            build-essential \
           # Librairies required for LESS
             node-less \
             nodejs \
