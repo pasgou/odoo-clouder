@@ -72,7 +72,7 @@ RUN adduser --home=/opt/odoo --disabled-password --gecos "" --shell=/bin/bash od
 # makes the container more unlikely to be unwillingly changed in interactive mode
 USER odoo
 
-RUN /bin/bash -c "mkdir -p /opt/odoo/{bin,etc,sources/odoo,addons/CE_inherited,addons/clouder,addons/enterprise,addons/ENT_inherit,addons/external,addons/nonfree,addons/private,data}"
+RUN /bin/bash -c "mkdir -p /opt/odoo/{bin,etc,sources/odoo,config,addons/CE_inherited,addons/clouder,addons/enterprise,addons/ENT_inherit,addons/external,addons/nonfree,addons/private,data}"
 RUN /bin/bash -c "mkdir -p /opt/odoo/var/{run,log,egg-cache}"
 
 # Add Odoo sources and remove .git folder in order to reduce image size
@@ -102,9 +102,10 @@ ADD http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trust
 RUN dpkg -i /opt/sources/wkhtmltox.deb
 
 # Execution environment
-USER 0
-ADD sources/odoo.conf /opt/sources/odoo.conf
+COPY sources/odoo.conf /opt/odoo/config/odoorc
+RUN chown odoo /opt/odoo/config/odoorc
 WORKDIR /app
+ADD bin /app/bin/
 
 # Add volumes. For addons :
 # "/opt/odoo/addons/CE_inherited" : adapted modules from Odoo official Community version,
@@ -116,10 +117,16 @@ WORKDIR /app
 # "/opt/odoo/addons/private" : your own modules from scratch, even if they depend from other (community) modules
 VOLUME ["/opt/odoo/var", "/opt/odoo/etc", "/opt/odoo/addons/CE_inherited","/opt/odoo/addons/clouder","/opt/odoo/addons/enterprise","/opt/odoo/addons/ENT_inherit","/opt/odoo/addons/external","/opt/odoo/addons/nonfree","/opt/odoo/addons/private", "/opt/odoo/data"]
 
-# Set the default entrypoint (non overridable) to run when starting the container
-ENTRYPOINT ["/app/bin/boot"]
-CMD ["help"]
+# Set the default config file
+ENV ODOO_RC /opt/odoo/config/odoorc
 
 # Expose the odoo ports (for linked containers)
 EXPOSE 8069 8072
-ADD bin /app/bin/
+
+# Set the default entrypoint (non overridable) to run when starting the container
+USER odoo
+ENTRYPOINT ["/app/bin/boot"]
+RUN /opt/odoo/sources/odoo-bin -d clouder -i clouder,clouder_template_bind,clouder_template_docker,clouder_template_drupal,clouder_template_drupal_wikicompare,clouder_template_ldap,clouder_template_mysql,clouder_template_odoo,clouder_template_odoo_community,clouder_template_piwik,clouder_template_postfix,clouder_template_postgres,clouder_template_proxy,clouder_template_seafile,clouder_template_shinken,clouder_template_wordpress
+
+CMD ["help"]
+
