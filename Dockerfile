@@ -127,5 +127,5 @@ EXPOSE 8069 8072
 USER odoo
 ENTRYPOINT ["/app/bin/init"]
 
-CMD ["odoo-bin"]
+CMD ["/opt/odoo/sources/odoo/odoo-bin"]
 
