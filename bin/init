@@ -24,16 +24,16 @@ check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 
 case "$1" in
-    -- | /opt/odoo/sources/odoo/odoo-bin)
+    -- | /opt/odoo/sources/odoo/openerp-server)
         shift
         if [[ "$1" == "scaffold" ]] ; then
-            exec /opt/odoo/sources/odoo/odoo-bin "$@"
+            exec /opt/odoo/sources/odoo/openerp-server "$@"
         else
-            exec /opt/odoo/sources/odoo/odoo-bin "$@" "${DB_ARGS[@]}"
+            exec /opt/odoo/sources/odoo/openerp-server "$@" "${DB_ARGS[@]}"
         fi
         ;;
     -*)
-        exec /opt/odoo/sources/odoo/odoo-bin "$@" "${DB_ARGS[@]}"
+        exec /opt/odoo/sources/odoo/openerp-server "$@" "${DB_ARGS[@]}"
         ;;
     *)
         exec "$@"
