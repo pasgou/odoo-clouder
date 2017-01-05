@@ -65,19 +65,6 @@ RUN set -x; \
             curl \
             nano \
       && pip install --upgrade pip
-=======
-# Install dependencies as distrib packages when system bindings are required
-# some of them extend the basic odoo requirements for a better "apps" compatibility
-# most dependencies are distributed as wheel packages at the next step
-RUN apt-get update && \
-    apt-get -yq install \
-    ca-certificates \
-    python-gevent \
-    python-renderpm \
-    adduser \
-    ghostscript \
-    python \
-    python-pip \
 
 
 # create the odoo user
@@ -93,13 +80,12 @@ RUN /bin/bash -c "mkdir -p /opt/odoo/var/{run,log,egg-cache}"
 # Add Odoo sources and remove .git folder in order to reduce image size
 WORKDIR /opt/odoo/sources
 
-RUN git clone https://github.com/odoo/odoo.git --depth=1 -b 9.0 odoo && \
+RUN git clone https://github.com/odoo/odoo.git --depth=1 -b 10.0 odoo && \
   rm -rf odoo/.git
 
 # Add Clouder modules and dependencies
 WORKDIR /opt/odoo/addons
-RUN git clone --depth=1 -b 0.9.0 https://github.com/clouder-community/clouder.git clouder && rm -rf clouder/.git \
- && git clone https://github.com/OCA/connector.git --depth=1 -b 9.0 external && rm -rf external/.git
+RUN git clone --depth=1 -b master https://github.com/clouder-community/clouder.git clouder && rm -rf clouder/.git
 
 
 USER root
