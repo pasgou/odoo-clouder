@@ -65,19 +65,6 @@ RUN set -x; \
             curl \
             nano \
       && pip install --upgrade pip
-=======
-# Install dependencies as distrib packages when system bindings are required
-# some of them extend the basic odoo requirements for a better "apps" compatibility
-# most dependencies are distributed as wheel packages at the next step
-RUN apt-get update && \
-    apt-get -yq install \
-    ca-certificates \
-    python-gevent \
-    python-renderpm \
-    adduser \
-    ghostscript \
-    python \
-    python-pip \
 
 
 # create the odoo user
@@ -137,7 +124,7 @@ VOLUME ["/opt/odoo/var", "/opt/odoo/etc", "/opt/odoo/addons/CE_inherited","/opt/
 
 # Set the default config file
 ENV ODOO_RC /opt/odoo/config/odoorc
-ENV ODOO_BIN /opt/odoo/sources/odoo/odoo-bin
+ENV ODOO_BIN /opt/odoo/sources/odoo/openerp-server
 
 # Expose the odoo ports (for linked containers)
 EXPOSE 8069 8072
@@ -147,5 +134,5 @@ USER odoo
 
 ENTRYPOINT ["/init.sh"]
 
-CMD ["/opt/odoo/sources/odoo/odoo-bin"]
+CMD ["/opt/odoo/sources/odoo/openerp-server"]
 
