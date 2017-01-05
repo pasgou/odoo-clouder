@@ -1,5 +1,7 @@
 # odoo-clouder
-Odoo 10 with Clouder master modules
+Odoo 10 with Clouder master modules.
+
+need to be link with a postgresql databases.
 
 # DOCKER REPO
 https://hub.docker.com/r/pasgou/odoo-clouder/
