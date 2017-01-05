@@ -104,8 +104,8 @@ RUN dpkg -i /opt/sources/wkhtmltox.deb
 # Execution environment
 COPY sources/odoo.conf /opt/odoo/config/odoorc
 RUN chown odoo /opt/odoo/config/odoorc
-WORKDIR /app
-ADD bin /app/bin/
+COPY bin/init /init.sh
+RUN chmod +x /init.sh
 
 # Add volumes. For addons :
 # "/opt/odoo/addons/CE_inherited" : adapted modules from Odoo official Community version,
@@ -119,13 +119,15 @@ VOLUME ["/opt/odoo/var", "/opt/odoo/etc", "/opt/odoo/addons/CE_inherited","/opt/
 
 # Set the default config file
 ENV ODOO_RC /opt/odoo/config/odoorc
+ENV ODOO_BIN /opt/odoo/sources/odoo/odoo-bin
 
 # Expose the odoo ports (for linked containers)
 EXPOSE 8069 8072
 
 # Set the default entrypoint (non overridable) to run when starting the container
 USER odoo
-ENTRYPOINT ["/app/bin/init"]
+
+ENTRYPOINT ["/init.sh"]
 
 CMD ["/opt/odoo/sources/odoo/odoo-bin"]
 

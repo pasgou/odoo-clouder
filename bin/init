@@ -9,8 +9,6 @@ set -e
 : ${USER:=${DB_ENV_POSTGRES_USER:=${POSTGRES_USER:='odoo'}}}
 : ${PASSWORD:=${DB_ENV_POSTGRES_PASSWORD:=${POSTGRES_PASSWORD:='odoo'}}}
 
-ODOO-BIN_PATH = /opt/odoo/sources/odoo/odoo-bin
-
 DB_ARGS=()
 function check_config() {
     param="$1"
@@ -26,20 +24,19 @@ check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 
 case "$1" in
-    -- | $ODOO-BIN_PATH)
+    -- | /opt/odoo/sources/odoo/odoo-bin)
         shift
         if [[ "$1" == "scaffold" ]] ; then
-            exec $ODOO-BIN_PATH "$@"
+            exec /opt/odoo/sources/odoo/odoo-bin "$@"
         else
-            exec $ODOO-BIN_PATH "$@" "${DB_ARGS[@]}"
+            exec /opt/odoo/sources/odoo/odoo-bin "$@" "${DB_ARGS[@]}"
         fi
         ;;
     -*)
-        exec $ODOO-BIN_PATH "$@" "${DB_ARGS[@]}"
+        exec /opt/odoo/sources/odoo/odoo-bin "$@" "${DB_ARGS[@]}"
         ;;
     *)
         exec "$@"
 esac
-
 
 exit 1
