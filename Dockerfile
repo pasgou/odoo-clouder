@@ -128,5 +128,5 @@ USER odoo
 ENTRYPOINT ["/app/bin/init"]
 RUN /opt/odoo/sources/odoo-bin --stop-after-init -d clouder -i clouder,clouder_template_bind,clouder_template_docker,clouder_template_drupal,clouder_template_drupal_wikicompare,clouder_template_ldap,clouder_template_mysql,clouder_template_odoo,clouder_template_odoo_community,clouder_template_piwik,clouder_template_postfix,clouder_template_postgres,clouder_template_proxy,clouder_template_seafile,clouder_template_shinken,clouder_template_wordpress
 
-CMD ["odoo"]
+CMD ["odoo-bin"]
 
