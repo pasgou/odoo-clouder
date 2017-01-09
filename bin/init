@@ -22,6 +22,7 @@ check_config "db_host" "$HOST"
 check_config "db_port" "$PORT"
 check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
+ckeck_config "addons_path" "/opt/odoo/addons/CE_inherited,/opt/odoo/addons/clouder,/opt/odoo/addons/enterprise,/opt/odoo/addons/ENT_inherit,/opt/odoo/addons/external,/opt/odoo/addons/nonfree,/opt/odoo/addons/private,/opt/odoo/sources/odoo/addons"
 
 case "$1" in
     -- | /opt/odoo/sources/odoo/openerp-server)
