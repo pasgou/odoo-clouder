@@ -109,7 +109,7 @@ RUN dpkg -i /opt/sources/wkhtmltox.deb
 # Execution environment
 COPY sources/odoo.conf /opt/odoo/config/odoorc
 RUN chown odoo /opt/odoo/config/odoorc
-COPY bin/init /init.sh
+COPY bin/init.sh /init.sh
 RUN chmod +x /init.sh
 
 # Add volumes. For addons :
